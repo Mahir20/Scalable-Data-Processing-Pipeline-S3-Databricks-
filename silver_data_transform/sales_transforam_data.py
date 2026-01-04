@@ -14,37 +14,36 @@ df_sales.createOrReplaceTempView('sale')
 
 # COMMAND ----------
 
-# MAGIC %sql
-# MAGIC -- total sales transactions are recorded
-# MAGIC select count(sale_id) as total_transactions
-# MAGIC from sale
+%sql
+# total sales transactions are recorded
+select count(sale_id) as total_transactions
+from sale
 
 # COMMAND ----------
 
-# MAGIC %sql
-# MAGIC -- revenue generated per day
-# MAGIC select sale_date, round(sum(quantity*total_amount), 2) as total
-# MAGIC from sale
-# MAGIC where sale_date is not null
-# MAGIC group by sale_date
-# MAGIC
+%sql
+# revenue generated per day
+select sale_date, round(sum(quantity*total_amount), 2) as total
+from sale
+where sale_date is not null
+group by sale_date
+
 
 # COMMAND ----------
 
-# MAGIC %sql
-# MAGIC -- day has txest sales
-# MAGIC select sale_date, round(sum(quantity*total_amount), 2) as total
-# MAGIC from sale
-# MAGIC where sale_date is not null
-# MAGIC group by sale_date
-# MAGIC order by total desc
-# MAGIC limit 5
+%sql
+# day has txest sales
+select sale_date, round(sum(quantity*total_amount), 2) as total
+from sale
+where sale_date is not null
+group by sale_date
+order by total desc
+ limit 5
 
 # COMMAND ----------
-
-# MAGIC %sql
-# MAGIC -- repeat purchases exist
-# MAGIC select count(*) as total_repeat_purchases
-# MAGIC from sale
-# MAGIC group by sale_id
-# MAGIC having count(*) > 1
+ %sql
+# repeat purchases exist
+select count(*) as total_repeat_purchases
+from sale
+group by sale_id
+having count(*) > 1
